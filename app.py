@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
@@ -12,6 +13,7 @@ def get_db_connection():
 
 def init_db():
     conn = get_db_connection()
+
     conn.execute("""
         CREATE TABLE IF NOT EXISTS study_records (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,6 +22,22 @@ def init_db():
             completed INTEGER NOT NULL
         )
     """)
+
+    columns = conn.execute("PRAGMA table_info(study_records)").fetchall()
+    column_names = []
+
+    for column in columns:
+        column_names.append(column["name"])
+
+    if "date" not in column_names:
+        conn.execute("ALTER TABLE study_records ADD COLUMN date TEXT")
+
+        today = datetime.now().strftime("%Y-%m-%d")
+        conn.execute(
+            "UPDATE study_records SET date = ? WHERE date IS NULL OR date = ''",
+            (today,)
+        )
+
     conn.commit()
     conn.close()
 
@@ -27,7 +45,9 @@ def init_db():
 @app.route("/")
 def home():
     conn = get_db_connection()
-    records = conn.execute("SELECT * FROM study_records").fetchall()
+    records = conn.execute(
+        "SELECT * FROM study_records ORDER BY id DESC"
+    ).fetchall()
     conn.close()
 
     total_records = len(records)
@@ -55,11 +75,28 @@ def home():
 def add_record():
     subject = request.form["subject"]
     hours = request.form["hours"]
+    date = datetime.now().strftime("%Y-%m-%d")
 
     conn = get_db_connection()
     conn.execute(
-        "INSERT INTO study_records (subject, hours, completed) VALUES (?, ?, ?)",
-        (subject, hours, 0)
+        "INSERT INTO study_records (subject, hours, completed, date) VALUES (?, ?, ?, ?)",
+        (subject, hours, 0, date)
+    )
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("home"))
+
+
+@app.route("/edit/<int:id>", methods=["POST"])
+def edit_record(id):
+    subject = request.form["subject"]
+    hours = request.form["hours"]
+
+    conn = get_db_connection()
+    conn.execute(
+        "UPDATE study_records SET subject = ?, hours = ? WHERE id = ?",
+        (subject, hours, id)
     )
     conn.commit()
     conn.close()
@@ -73,6 +110,7 @@ def delete_record(id):
     conn.execute("DELETE FROM study_records WHERE id = ?", (id,))
     conn.commit()
     conn.close()
+
     return redirect(url_for("home"))
 
 
@@ -92,7 +130,6 @@ def toggle_complete(id):
             "UPDATE study_records SET completed = ? WHERE id = ?",
             (new_value, id)
         )
-
         conn.commit()
 
     conn.close()

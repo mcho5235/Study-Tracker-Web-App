@@ -4,6 +4,11 @@ A clean and minimal **study tracking web application** built with **Flask**.
 This app allows users to record study sessions, track progress, and visualise completed study time.
 
 
+## 🎯 Purpose
+
+This project was created to help users track their study sessions and measure real productivity by focusing on completed study time.
+
+
 ## 🚀 Features
 
 * Add study records (subject + hours)
@@ -18,6 +23,15 @@ This app allows users to record study sessions, track progress, and visualise co
   * Pending tasks
   * Total completed study hours
 * Clean, modern, and user-friendly UI
+
+
+## 📸 Screenshots
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image.png)
 
 
 ## 🛠 Tech Stack
