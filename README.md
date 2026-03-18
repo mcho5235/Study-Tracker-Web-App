@@ -117,6 +117,8 @@ python app.py
 
 ## ⭐ Notes
 
+- Edit feature still being developed.
+
 This project was developed to practice:
 
 * Backend development with Flask
