@@ -3,7 +3,6 @@
 A clean and minimal **study tracking web application** built with **Flask**.
 This app allows users to record study sessions, track progress, and visualise completed study time.
 
----
 
 ## 🚀 Features
 
@@ -17,10 +16,9 @@ This app allows users to record study sessions, track progress, and visualise co
   * Total records
   * Completed tasks
   * Pending tasks
-  * **Total completed study hours**
+  * Total completed study hours
 * Clean, modern, and user-friendly UI
 
----
 
 ## 🛠 Tech Stack
 
@@ -29,7 +27,6 @@ This app allows users to record study sessions, track progress, and visualise co
 * SQLite
 * HTML / CSS
 
----
 
 ## 📦 Project Structure
 
@@ -42,7 +39,6 @@ study-tracker/
 │── README.md
 ```
 
----
 
 ## ▶️ How to Run
 
@@ -58,13 +54,7 @@ pip install flask
 python app.py
 ```
 
-3. Open in browser:
-
-```
-http://127.0.0.1:5000
-```
-
----
+3. Open in browser: http://127.0.0.1:5000
 
 ## 📊 How It Works
 
@@ -77,22 +67,20 @@ http://127.0.0.1:5000
   * Completion status
   * Date
 
-* **Only completed study sessions contribute to total study hours**,
+* Only completed study sessions contribute to total study hours,
   providing a more accurate measure of productivity.
 
----
 
 ## 💡 Example Workflow
 
 1. Add a study session
-   → e.g. "COMP2017 - 2 hours"
+   → e.g. "Mathematics - 2 hours"
 
 2. Mark it as completed
    → included in total study hours
 
 3. Edit or delete if needed
 
----
 
 ## 🎨 UI Design
 
@@ -104,7 +92,6 @@ http://127.0.0.1:5000
   * ○ Not Completed
 * Responsive layout for different screen sizes
 
----
 
 ## 📈 Future Improvements
 
@@ -113,21 +100,12 @@ http://127.0.0.1:5000
 * User authentication
 * Subject-based tracking
 
----
-
-## 👨‍💻 Author
-
-Minseo Cho
-
----
 
 ## ⭐ Notes
 
-This project was developed to practise:
+This project was developed to practice:
 
 * Backend development with Flask
 * Database integration (SQLite)
 * CRUD operations
 * UI/UX design for web applications
-
----
